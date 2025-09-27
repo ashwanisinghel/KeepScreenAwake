@@ -103,5 +103,31 @@
         setInterval(updateTime, 1000);
         updateTime();
     </script>
+    <script>
+        let wakeLock = null;
+
+        async function requestWakeLock() {
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Wake Lock is active');
+
+                wakeLock.addEventListener('release', () => {
+                    console.log('Wake Lock released');
+                });
+            } catch (err) {
+                console.error('Failed to activate Wake Lock:', err);
+            }
+        }
+
+        // Request wake lock when the page loads
+        window.addEventListener('load', requestWakeLock);
+
+        // Re-request wake lock if visibility changes
+        document.addEventListener('visibilitychange', () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                requestWakeLock();
+            }
+        });
+    </script>
 </body>
 </html>
