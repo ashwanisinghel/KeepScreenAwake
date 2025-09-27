@@ -75,9 +75,10 @@
 
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             gap: 1.2rem;
-            max-width: 1000px;
+            max-width: 900px;
             width: 100%;
             padding: 0 1rem;
             margin-bottom: 3rem;
@@ -223,6 +224,14 @@
             font-style: italic;
         }
 
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .dashboard {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                max-width: 600px;
+            }
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -233,7 +242,8 @@
             }
 
             .dashboard {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 1fr);
                 gap: 1rem;
             }
 
@@ -305,7 +315,7 @@
 
     <footer class="footer">
         <p>Made with ❤️ by <strong>Ashwani Singh</strong></p>
-        <p class="footer-subtitle">For frustrated developers whose screen time is monitored</p>
+        <p class="footer-subtitle">For frustrated developers where screen time is monitored</p>
     </footer>
     <script>
         function updateTime() {
