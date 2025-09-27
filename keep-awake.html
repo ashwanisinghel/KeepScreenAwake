@@ -1,107 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Clock Dashboard</title>
+    <title>Global Time Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background: #f4f4f9;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, var(--background-color) 0%, #e2e8f0 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
+            line-height: 1.6;
         }
-        h1 {
-            margin-top: 20px;
-            color: #333;
-        }
-        .dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px;
-        }
-        .card {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 20px;
-            width: 250px;
+
+        .header {
             text-align: center;
+            margin: 2rem 0 3rem 0;
+            padding: 0 1rem;
         }
-        .card .clock {
-            font-size: 36px;
-            font-weight: bold;
-            color: #333;
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.025em;
         }
-        .card .date {
-            margin-top: 10px;
-            font-size: 16px;
-            color: #666;
+
+        .header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin: 0;
+            font-weight: 400;
         }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            width: 100%;
+            padding: 0 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), #3b82f6);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
         .card .location {
-            margin-top: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #444;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card .clock {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.025em;
+        }
+
+        .card .date {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .card .timezone-info {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: var(--background-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .status-indicator {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card .clock {
+                font-size: 2.5rem;
+            }
+
+            .status-indicator {
+                bottom: 1rem;
+                right: 1rem;
+            }
         }
     </style>
 </head>
+
 <body>
-    <h1>World Clock Dashboard</h1>
+    <div class="header">
+        <h1>Global Time Dashboard</h1>
+        <p>Real-time world clock across major time zones</p>
+    </div>
+
     <div class="dashboard">
         <div class="card" data-timezone="Asia/Kolkata">
+            <div class="location">Mumbai, India</div>
             <div class="clock">--:--:--</div>
             <div class="date">--</div>
-            <div class="location">Asia - Mumbai</div>
+            <div class="timezone-info">UTC+5:30</div>
         </div>
         <div class="card" data-timezone="Europe/London">
+            <div class="location">London, UK</div>
             <div class="clock">--:--:--</div>
             <div class="date">--</div>
-            <div class="location">Europe - London</div>
+            <div class="timezone-info">UTC+0</div>
         </div>
         <div class="card" data-timezone="Asia/Tokyo">
+            <div class="location">Tokyo, Japan</div>
             <div class="clock">--:--:--</div>
             <div class="date">--</div>
-            <div class="location">Asia - Tokyo</div>
+            <div class="timezone-info">UTC+9</div>
         </div>
         <div class="card" data-timezone="America/New_York">
+            <div class="location">New York, USA</div>
             <div class="clock">--:--:--</div>
             <div class="date">--</div>
-            <div class="location">America - New York</div>
+            <div class="timezone-info">UTC-5</div>
         </div>
         <div class="card" data-timezone="America/Los_Angeles">
+            <div class="location">Los Angeles, USA</div>
             <div class="clock">--:--:--</div>
             <div class="date">--</div>
-            <div class="location">America - Los Angeles</div>
+            <div class="timezone-info">UTC-8</div>
         </div>
+        <div class="card" data-timezone="Australia/Sydney">
+            <div class="location">Sydney, Australia</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC+11</div>
+        </div>
+    </div>
+
+    <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>Keep Awake Active</span>
     </div>
     <script>
         function updateTime() {
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 const timezone = card.getAttribute('data-timezone');
-                const now = new Date().toLocaleString('en-US', { timeZone: timezone });
-                const date = new Date(now);
 
-                const hours = String(date.getHours()).padStart(2, '0');
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                const seconds = String(date.getSeconds()).padStart(2, '0');
+                // Create date object for the specific timezone
+                const now = new Date();
+                const options = {
+                    timeZone: timezone,
+                    hour12: false,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                };
+
+                const dateOptions = {
+                    timeZone: timezone,
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+
+                const timeString = now.toLocaleTimeString('en-US', options);
+                const dateString = now.toLocaleDateString('en-US', dateOptions);
 
                 const clock = card.querySelector('.clock');
                 const dateElement = card.querySelector('.date');
 
-                clock.textContent = `${hours}:${minutes}:${seconds}`;
-                dateElement.textContent = date.toDateString();
+                clock.textContent = timeString;
+                dateElement.textContent = dateString;
             });
         }
 
-        setInterval(updateTime, 1000);
+        // Update time immediately and then every second
         updateTime();
+        setInterval(updateTime, 1000);
+
+        // Add smooth loading animation
+        window.addEventListener('load', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
     </script>
     <script>
         let wakeLock = null;
@@ -130,4 +325,5 @@
         });
     </script>
 </body>
+
 </html>
