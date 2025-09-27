@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep Screen Awake</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .status {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .active { background: rgba(76, 175, 80, 0.3); }
+        .inactive { background: rgba(244, 67, 54, 0.3); }
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover { background: #45a049; }
+        button:disabled { background: #cccccc; cursor: not-allowed; }
+        .time {
+            font-size: 2rem;
+            margin: 1rem 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔋 Screen Keep Awake</h1>
+        <div class="time" id="currentTime"></div>
+        <div class="status" id="status">Initializing...</div>
+        <button id="toggleBtn" onclick="toggleWakeLock()">Start Keep Awake</button>
+        <p>This app prevents your screen from going to sleep while active.</p>
+    </div>
+
+    <script>
+        let wakeLock = null;
+        let isActive = false;
+
+        // Update current time
+        function updateTime() {
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // Check if Wake Lock API is supported
+        if ('wakeLock' in navigator) {
+            document.getElementById('status').textContent = 'Wake Lock API supported - Ready to use';
+            document.getElementById('status').className = 'status inactive';
+        } else {
+            document.getElementById('status').textContent = 'Wake Lock API not supported in this browser';
+            document.getElementById('status').className = 'status inactive';
+            document.getElementById('toggleBtn').disabled = true;
+        }
+
+        async function requestWakeLock() {
+            try {
+                wakeLock = await navigator.wakeLock.request('screen');
+                isActive = true;
+                
+                document.getElementById('status').textContent = '✅ Screen wake lock is ACTIVE - Screen will stay awake';
+                document.getElementById('status').className = 'status active';
+                document.getElementById('toggleBtn').textContent = 'Stop Keep Awake';
+                
+                wakeLock.addEventListener('release', () => {
+                    console.log('Wake lock was released');
+                });
+                
+            } catch (err) {
+                console.error('Failed to request wake lock:', err);
+                document.getElementById('status').textContent = `❌ Failed to activate: ${err.message}`;
+                document.getElementById('status').className = 'status inactive';
+            }
+        }
+
+        function releaseWakeLock() {
+            if (wakeLock) {
+                wakeLock.release();
+                wakeLock = null;
+                isActive = false;
+                
+                document.getElementById('status').textContent = '⏸️ Screen wake lock is INACTIVE - Screen may go to sleep';
+                document.getElementById('status').className = 'status inactive';
+                document.getElementById('toggleBtn').textContent = 'Start Keep Awake';
+            }
+        }
+
+        function toggleWakeLock() {
+            if (isActive) {
+                releaseWakeLock();
+            } else {
+                requestWakeLock();
+            }
+        }
+
+        // Handle visibility change (when tab becomes hidden/visible)
+        document.addEventListener('visibilitychange', async () => {
+            if (wakeLock !== null && document.visibilityState === 'visible') {
+                // Re-request wake lock when tab becomes visible again
+                await requestWakeLock();
+            }
+        });
+
+        // Auto-start wake lock when page loads
+        window.addEventListener('load', () => {
+            if ('wakeLock' in navigator) {
+                requestWakeLock();
+            }
+        });
+    </script>
+</body>
+</html>
