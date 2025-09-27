@@ -26,7 +26,9 @@
         }
 
         body {
-            background: linear-gradient(135deg, var(--background-color) 0%, #e2e8f0 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
@@ -35,6 +37,20 @@
             flex-direction: column;
             align-items: center;
             line-height: 1.6;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .header {
@@ -46,35 +62,38 @@
         .header h1 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: white;
             margin: 0 0 0.5rem 0;
             letter-spacing: -0.025em;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
             font-size: 1.125rem;
-            color: var(--text-secondary);
+            color: rgba(255, 255, 255, 0.9);
             margin: 0;
             font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .dashboard {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            max-width: 1000px;
             width: 100%;
             padding: 0 1rem;
             margin-bottom: 3rem;
         }
 
         .card {
-            background: var(--card-background);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 16px;
             box-shadow: var(--shadow-lg);
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
-            border: 1px solid var(--border-color);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -87,7 +106,30 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--primary-color), #3b82f6);
+        }
+
+        .card[data-timezone="Asia/Kolkata"]::before {
+            background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+        }
+
+        .card[data-timezone="Europe/London"]::before {
+            background: linear-gradient(90deg, #4834d4, #686de0);
+        }
+
+        .card[data-timezone="Asia/Tokyo"]::before {
+            background: linear-gradient(90deg, #ff9ff3, #f368e0);
+        }
+
+        .card[data-timezone="America/New_York"]::before {
+            background: linear-gradient(90deg, #00d2d3, #54a0ff);
+        }
+
+        .card[data-timezone="America/Los_Angeles"]::before {
+            background: linear-gradient(90deg, #feca57, #ff9ff3);
+        }
+
+        .card[data-timezone="Australia/Sydney"]::before {
+            background: linear-gradient(90deg, #48dbfb, #0abde3);
         }
 
         .card:hover {
@@ -96,36 +138,36 @@
         }
 
         .card .location {
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .card .clock {
-            font-size: 3rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.025em;
         }
 
         .card .date {
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             font-weight: 500;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .card .timezone-info {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
-            background: var(--background-color);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            background: rgba(248, 250, 252, 0.8);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
             display: inline-block;
             font-weight: 500;
         }
@@ -166,6 +208,29 @@
             }
         }
 
+        .footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: auto;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .footer p {
+            margin: 0.3rem 0;
+        }
+
+        .footer strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .footer-subtitle {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-style: italic;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -176,16 +241,16 @@
             }
 
             .dashboard {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
                 gap: 1rem;
             }
 
             .card {
-                padding: 1.5rem;
+                padding: 1.2rem;
             }
 
             .card .clock {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
             }
 
             .status-indicator {
@@ -245,6 +310,11 @@
         <div class="status-dot"></div>
         <span>Keep Awake Active</span>
     </div>
+
+    <footer class="footer">
+        <p>Made with ❤️ by <strong>Ashwani Singh</strong></p>
+        <p class="footer-subtitle">For frustrated developers whose screen time is monitored</p>
+    </footer>
     <script>
         function updateTime() {
             const cards = document.querySelectorAll('.card');
