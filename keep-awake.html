@@ -26,9 +26,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
@@ -37,6 +35,7 @@
             flex-direction: column;
             align-items: center;
             line-height: 1.6;
+            color: #1e293b;
         }
 
         @keyframes gradientShift {
@@ -60,20 +59,18 @@
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
+            font-size: 2.25rem;
+            font-weight: 600;
+            color: #1e293b;
             margin: 0 0 0.5rem 0;
             letter-spacing: -0.025em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .header p {
-            font-size: 1.125rem;
-            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            color: #64748b;
             margin: 0;
             font-weight: 400;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         .dashboard {
@@ -87,79 +84,74 @@
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            box-shadow: var(--shadow-lg);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             padding: 1.5rem;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
         }
 
-        .card[data-timezone="Asia/Kolkata"]::before {
-            background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+        .card[data-timezone="Asia/Kolkata"] {
+            border-left: 4px solid #dc2626;
         }
 
-        .card[data-timezone="Europe/London"]::before {
-            background: linear-gradient(90deg, #4834d4, #686de0);
+        .card[data-timezone="Europe/London"] {
+            border-left: 4px solid #4f46e5;
         }
 
-        .card[data-timezone="Asia/Tokyo"]::before {
-            background: linear-gradient(90deg, #ff9ff3, #f368e0);
+        .card[data-timezone="Asia/Tokyo"] {
+            border-left: 4px solid #db2777;
         }
 
-        .card[data-timezone="America/New_York"]::before {
-            background: linear-gradient(90deg, #00d2d3, #54a0ff);
+        .card[data-timezone="America/New_York"] {
+            border-left: 4px solid #0284c7;
         }
 
-        .card[data-timezone="America/Los_Angeles"]::before {
-            background: linear-gradient(90deg, #feca57, #ff9ff3);
+        .card[data-timezone="America/Los_Angeles"] {
+            border-left: 4px solid #d97706;
         }
 
-        .card[data-timezone="Australia/Sydney"]::before {
-            background: linear-gradient(90deg, #48dbfb, #0abde3);
+        .card[data-timezone="Australia/Sydney"] {
+            border-left: 4px solid #0891b2;
         }
+
+
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
 
         .card .location {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-secondary);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #64748b;
             margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
+            letter-spacing: 0;
         }
 
         .card .clock {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.4rem;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.025em;
         }
 
         .card .date {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 0.8rem;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
         }
 
         .card .timezone-info {
@@ -176,16 +168,16 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: var(--card-background);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem;
-            box-shadow: var(--shadow-md);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
+            font-size: 0.75rem;
+            color: #64748b;
         }
 
         .status-dot {
@@ -212,8 +204,8 @@
             text-align: center;
             padding: 2rem 1rem;
             margin-top: auto;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 0.9rem;
+            color: #64748b;
+            font-size: 0.875rem;
         }
 
         .footer p {
@@ -221,13 +213,13 @@
         }
 
         .footer strong {
-            color: white;
+            color: #1e293b;
             font-weight: 600;
         }
 
         .footer-subtitle {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.75rem;
+            color: #94a3b8;
             font-style: italic;
         }
 
