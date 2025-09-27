@@ -3,273 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Monitor Dashboard</title>
+    <title>World Clock Dashboard</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f4f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        h1 {
+            margin-top: 20px;
+            color: #333;
+        }
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
             justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: #ecf0f1;
+            margin: 20px;
         }
-        .container {
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 250px;
             text-align: center;
-            padding: 2rem;
-            border-radius: 15px;
-            background: rgba(52, 73, 94, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>World Clock Dashboard</title>
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-            <style>
-                body {
-                    background: #f6f8fa;
-                    font-family: 'Inter', Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                }
-                .dashboard {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 32px;
-                    justify-content: center;
-                    margin-top: 48px;
-                }
-                .card {
-                    background: #fff;
-                    border-radius: 18px;
-                    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-                    padding: 32px 36px;
-                    width: 320px;
-                    transition: box-shadow 0.2s, transform 0.2s;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    border-top: 6px solid #ffe066;
-                }
-                .card.night {
-                    border-top: 6px solid #3b5bdb;
-                }
-                .card:hover {
-                    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-                    transform: translateY(-4px) scale(1.02);
-                }
-                .clock {
-                    font-size: 54px;
-                    font-family: 'Inter', monospace;
-                    font-weight: 600;
-                    color: #212529;
-                    letter-spacing: 2px;
-                }
-                .date {
-                    margin-top: 10px;
-                    font-size: 20px;
-                    color: #868e96;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-                .location {
-                    margin-top: 18px;
-                    font-size: 24px;
-                    font-weight: 600;
-                    color: #343a40;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
-                @media (max-width: 900px) {
-                    .dashboard {
-                        gap: 20px;
-                    }
-                    .card {
-                        width: 90vw;
-                        max-width: 340px;
-                        padding: 24px 16px;
-                    }
-                }
-            </style>
-        </head>
-        <body>
-            <div class="dashboard">
-                <div class="card">
-                    <div class="clock">13 : 05 : 59</div>
-                    <div class="date"><span>☀️</span> 27 September, 2025</div>
-                    <div class="location"><span>🇮🇳</span> Asia - Mumbai</div>
-                </div>
-                <div class="card">
-                    <div class="clock">08 : 35 : 59</div>
-                    <div class="date"><span>☀️</span> 27 September, 2025</div>
-                    <div class="location"><span>🇬🇧</span> Europe - London</div>
-                </div>
-                <div class="card">
-                    <div class="clock">16 : 35 : 59</div>
-                    <div class="date"><span>☀️</span> 27 September, 2025</div>
-                    <div class="location"><span>🇯🇵</span> Asia - Tokyo</div>
-                </div>
-                <div class="card night">
-                    <div class="clock">03 : 35 : 59</div>
-                    <div class="date"><span>🌙</span> 27 September, 2025</div>
-                    <div class="location"><span>🇺🇸</span> America - New York</div>
-                </div>
-                <div class="card night">
-                    <div class="clock">00 : 35 : 59</div>
-                    <div class="date"><span>🌙</span> 27 September, 2025</div>
-                    <div class="location"><span>🇺🇸</span> America - Los Angeles</div>
-                </div>
-            </div>
-        </body>
-        .metrics {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1rem 0;
+        .card .clock {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
         }
-        .metric {
-            padding: 0.8rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .card .date {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #666;
         }
-        .metric-label {
-            font-size: 0.8rem;
-            color: #95a5a6;
-            margin-bottom: 0.3rem;
-        }
-        .metric-value {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #ecf0f1;
+        .card .location {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📊 System Monitor</h1>
-        <div class="time" id="currentTime"></div>
-        
-        <div class="metrics">
-            <div class="metric">
-                <div class="metric-label">Session Status</div>
-                <div class="metric-value" id="sessionStatus">Active</div>
-            </div>
-            <div class="metric">
-                <div class="metric-label">Uptime</div>
-                <div class="metric-value" id="uptime">00:00:00</div>
-            </div>
+    <h1>World Clock Dashboard</h1>
+    <div class="dashboard">
+        <div class="card" data-timezone="Asia/Kolkata">
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="location">Asia - Mumbai</div>
         </div>
-        
-        <div class="status" id="status">Initializing system monitor...</div>
-        <button id="toggleBtn" onclick="toggleMonitoring()">Start Monitoring</button>
-        <p style="font-size: 0.9rem; color: #95a5a6;">Real-time system activity monitoring dashboard</p>
+        <div class="card" data-timezone="Europe/London">
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="location">Europe - London</div>
+        </div>
+        <div class="card" data-timezone="Asia/Tokyo">
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="location">Asia - Tokyo</div>
+        </div>
+        <div class="card" data-timezone="America/New_York">
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="location">America - New York</div>
+        </div>
+        <div class="card" data-timezone="America/Los_Angeles">
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="location">America - Los Angeles</div>
+        </div>
     </div>
-
     <script>
-        let wakeLock = null;
-        let isActive = false;
-        let startTime = new Date();
-
-        // Update current time and uptime
         function updateTime() {
-            const now = new Date();
-            document.getElementById('currentTime').textContent = now.toLocaleTimeString();
-            
-            // Calculate uptime
-            const uptimeMs = now - startTime;
-            const hours = Math.floor(uptimeMs / 3600000);
-            const minutes = Math.floor((uptimeMs % 3600000) / 60000);
-            const seconds = Math.floor((uptimeMs % 60000) / 1000);
-            document.getElementById('uptime').textContent = 
-                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const timezone = card.getAttribute('data-timezone');
+                const now = new Date().toLocaleString('en-US', { timeZone: timezone });
+                const date = new Date(now);
+
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const seconds = String(date.getSeconds()).padStart(2, '0');
+
+                const clock = card.querySelector('.clock');
+                const dateElement = card.querySelector('.date');
+
+                clock.textContent = `${hours}:${minutes}:${seconds}`;
+                dateElement.textContent = date.toDateString();
+            });
         }
+
         setInterval(updateTime, 1000);
         updateTime();
-
-        // Check if Wake Lock API is supported
-        if ('wakeLock' in navigator) {
-            document.getElementById('status').textContent = 'System monitoring capabilities detected - Ready to start';
-            document.getElementById('status').className = 'status inactive';
-        } else {
-            document.getElementById('status').textContent = 'Advanced monitoring features not available in this environment';
-            document.getElementById('status').className = 'status inactive';
-            document.getElementById('toggleBtn').disabled = true;
-        }
-
-        async function requestWakeLock() {
-            try {
-                wakeLock = await navigator.wakeLock.request('screen');
-                isActive = true;
-                
-                document.getElementById('status').textContent = '🟢 Active monitoring session - System resources being tracked';
-                document.getElementById('status').className = 'status active';
-                document.getElementById('toggleBtn').textContent = 'Stop Monitoring';
-                document.getElementById('sessionStatus').textContent = 'Monitoring';
-                
-                wakeLock.addEventListener('release', () => {
-                    console.log('Monitoring session ended');
-                });
-                
-            } catch (err) {
-                console.error('Failed to start monitoring:', err);
-                document.getElementById('status').textContent = `❌ Failed to initialize monitoring: ${err.message}`;
-                document.getElementById('status').className = 'status inactive';
-            }
-        }
-
-        function releaseWakeLock() {
-            if (wakeLock) {
-                wakeLock.release();
-                wakeLock = null;
-                isActive = false;
-                
-                document.getElementById('status').textContent = '⏸️ Monitoring paused - System in standby mode';
-                document.getElementById('status').className = 'status inactive';
-                document.getElementById('toggleBtn').textContent = 'Start Monitoring';
-                document.getElementById('sessionStatus').textContent = 'Standby';
-            }
-        }
-
-        function toggleMonitoring() {
-            if (isActive) {
-                releaseWakeLock();
-            } else {
-                requestWakeLock();
-            }
-        }
-
-        // Handle visibility change (when tab becomes hidden/visible)
-        document.addEventListener('visibilitychange', async () => {
-            if (wakeLock !== null && document.visibilityState === 'visible') {
-                // Re-request wake lock when tab becomes visible again
-                await requestWakeLock();
-            }
-        });
-
-        // Auto-start monitoring when page loads
-        window.addEventListener('load', () => {
-            if ('wakeLock' in navigator) {
-                requestWakeLock();
-            }
-        });
-
-        // Simulate some system metrics for authenticity
-        function updateMetrics() {
-            // These are just for show - not real metrics
-            const cpuUsage = Math.floor(Math.random() * 30) + 10; // 10-40%
-            const memUsage = Math.floor(Math.random() * 20) + 45; // 45-65%
-            
-            // You could add more fake metrics here if needed
-        }
-        setInterval(updateMetrics, 5000);
     </script>
 </body>
 </html>
