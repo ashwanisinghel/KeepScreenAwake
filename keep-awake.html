@@ -25,35 +25,109 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        .status {
-            font-size: 1rem;
-            margin: 1rem 0;
-            padding: 0.8rem;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #3498db;
-        }
-        .active { border-left-color: #27ae60; background: rgba(39, 174, 96, 0.2); }
-        .inactive { border-left-color: #e74c3c; background: rgba(231, 76, 60, 0.2); }
-        button {
-            padding: 0.8rem 1.5rem;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 6px;
-            background: #3498db;
-            color: white;
-            cursor: pointer;
-            margin: 0.5rem;
-            transition: background 0.3s;
-        }
-        button:hover { background: #2980b9; }
-        button:disabled { background: #7f8c8d; cursor: not-allowed; }
-        .time {
-            font-size: 1.8rem;
-            margin: 1rem 0;
-            font-weight: 300;
-            color: #bdc3c7;
-        }
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>World Clock Dashboard</title>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+            <style>
+                body {
+                    background: #f6f8fa;
+                    font-family: 'Inter', Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                }
+                .dashboard {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 32px;
+                    justify-content: center;
+                    margin-top: 48px;
+                }
+                .card {
+                    background: #fff;
+                    border-radius: 18px;
+                    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+                    padding: 32px 36px;
+                    width: 320px;
+                    transition: box-shadow 0.2s, transform 0.2s;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    border-top: 6px solid #ffe066;
+                }
+                .card.night {
+                    border-top: 6px solid #3b5bdb;
+                }
+                .card:hover {
+                    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+                    transform: translateY(-4px) scale(1.02);
+                }
+                .clock {
+                    font-size: 54px;
+                    font-family: 'Inter', monospace;
+                    font-weight: 600;
+                    color: #212529;
+                    letter-spacing: 2px;
+                }
+                .date {
+                    margin-top: 10px;
+                    font-size: 20px;
+                    color: #868e96;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                .location {
+                    margin-top: 18px;
+                    font-size: 24px;
+                    font-weight: 600;
+                    color: #343a40;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+                @media (max-width: 900px) {
+                    .dashboard {
+                        gap: 20px;
+                    }
+                    .card {
+                        width: 90vw;
+                        max-width: 340px;
+                        padding: 24px 16px;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="dashboard">
+                <div class="card">
+                    <div class="clock">13 : 05 : 59</div>
+                    <div class="date"><span>☀️</span> 27 September, 2025</div>
+                    <div class="location"><span>🇮🇳</span> Asia - Mumbai</div>
+                </div>
+                <div class="card">
+                    <div class="clock">08 : 35 : 59</div>
+                    <div class="date"><span>☀️</span> 27 September, 2025</div>
+                    <div class="location"><span>🇬🇧</span> Europe - London</div>
+                </div>
+                <div class="card">
+                    <div class="clock">16 : 35 : 59</div>
+                    <div class="date"><span>☀️</span> 27 September, 2025</div>
+                    <div class="location"><span>🇯🇵</span> Asia - Tokyo</div>
+                </div>
+                <div class="card night">
+                    <div class="clock">03 : 35 : 59</div>
+                    <div class="date"><span>🌙</span> 27 September, 2025</div>
+                    <div class="location"><span>🇺🇸</span> America - New York</div>
+                </div>
+                <div class="card night">
+                    <div class="clock">00 : 35 : 59</div>
+                    <div class="date"><span>🌙</span> 27 September, 2025</div>
+                    <div class="location"><span>🇺🇸</span> America - Los Angeles</div>
+                </div>
+            </div>
+        </body>
         .metrics {
             display: grid;
             grid-template-columns: 1fr 1fr;
