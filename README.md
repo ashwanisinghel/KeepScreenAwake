@@ -51,8 +51,8 @@ The PowerShell script supports several options:
 ## Requirements
 
 - Windows with PowerShell (built into Windows 10/11)
-- Google Chrome browser
-- Chrome version 84+ (for Screen Wake Lock API support)
+- Google Chrome browser OR Microsoft Edge browser
+- Chrome 84+ or Edge 84+ (for Screen Wake Lock API support)
 
 ## How It Works
 
@@ -63,13 +63,14 @@ The PowerShell script supports several options:
 
 ## Troubleshooting
 
-**Chrome not found:**
-- Install Google Chrome from https://chrome.google.com
-- Or specify the Chrome path: `.\start-keep-awake.ps1 -ChromePath "path\to\chrome.exe"`
+**Browser not found:**
+- The script automatically tries Chrome first, then Edge if Chrome isn't found
+- Install Google Chrome from https://chrome.google.com OR Microsoft Edge (usually pre-installed on Windows 10/11)
+- Or specify a custom browser path: `.\start-keep-awake.ps1 -ChromePath "path\to\browser.exe"`
 
 **Wake Lock not working:**
-- Ensure you're using Chrome 84 or newer
-- Keep the Chrome window visible (not minimized)
+- Ensure you're using Chrome 84+ or Edge 84+ or newer
+- Keep the browser window visible (not minimized)
 - Make sure the tab is active
 
 **PowerShell execution policy error:**
@@ -78,7 +79,7 @@ The PowerShell script supports several options:
 
 ## Notes
 
-- The app must remain visible in Chrome to work effectively
-- Minimizing the Chrome window may cause the wake lock to be released
-- The wake lock is automatically released when you close the Chrome window
+- The app must remain visible in the browser to work effectively
+- Minimizing the browser window may cause the wake lock to be released
+- The wake lock is automatically released when you close the browser window
 - This is a client-side solution that doesn't require any server or installation
