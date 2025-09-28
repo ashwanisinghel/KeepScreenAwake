@@ -1,0 +1,72 @@
+/* Working Hours Calculator Styles */
+.working-hours-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.working-hours-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.working-hours-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.working-hours-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--card-background);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+}
+
+.working-hours-time {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.working-hours-time input {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--card-background);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    margin-right: 0.5rem;
+}
+
+.working-hours-result {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--background-start);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.overlap-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.overlap-time {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-family: 'Courier New', monospace;
+    margin-bottom: 0.5rem;
+}
+
+.best-meeting-time {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}

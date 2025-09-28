@@ -1,0 +1,33 @@
+/* CSS Variables and Theme Configuration */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #64748b;
+    --background-start: #f8fafc;
+    --background-mid: #e2e8f0;
+    --background-end: #cbd5e1;
+    --card-background: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --toggle-bg: #ffffff;
+    --toggle-border: #e2e8f0;
+    --toggle-hover: #f8fafc;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+[data-theme="dark"] {
+    --background-start: #0f172a;
+    --background-mid: #1e293b;
+    --background-end: #334155;
+    --card-background: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --border-color: #334155;
+    --toggle-bg: #334155;
+    --toggle-border: #475569;
+    --toggle-hover: #475569;
+}

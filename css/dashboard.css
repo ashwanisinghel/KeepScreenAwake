@@ -1,0 +1,70 @@
+/* World Clock Dashboard Styles */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 1.2rem;
+    max-width: 900px;
+    width: 100%;
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+}
+
+.card {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.card[data-timezone="Asia/Kolkata"] { border-left: 4px solid #dc2626; }
+.card[data-timezone="Europe/London"] { border-left: 4px solid #4f46e5; }
+.card[data-timezone="Asia/Tokyo"] { border-left: 4px solid #db2777; }
+.card[data-timezone="America/New_York"] { border-left: 4px solid #0284c7; }
+.card[data-timezone="America/Los_Angeles"] { border-left: 4px solid #d97706; }
+.card[data-timezone="Australia/Sydney"] { border-left: 4px solid #0891b2; }
+
+.card .location {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.card .clock {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.025em;
+}
+
+.card .date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+}
+
+.card .timezone-info {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    background: rgba(248, 250, 252, 0.8);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    display: inline-block;
+    font-weight: 500;
+}
