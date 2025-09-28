@@ -276,44 +276,253 @@
 
 @media (max-width: 768px) {
     .indian-calendar {
-        margin: 1rem;
-        padding: 1.5rem;
+        margin: 0.5rem;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .indian-calendar h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        text-align: center;
     }
 
     .calendar-controls {
         flex-direction: column;
-        align-items: stretch;
-        gap: 1rem;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
     }
 
     .calendar-nav {
-        justify-content: center;
+        order: 2;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .calendar-nav button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        border-radius: 20px;
+        min-width: 60px;
+    }
+
+    .current-month {
+        order: 1;
+        font-size: 1.2rem;
+        text-align: center;
+        margin: 0;
+        font-weight: 700;
     }
 
     .calendar-selectors {
+        order: 3;
         justify-content: center;
-    }
-
-    .calendar-day {
-        min-height: 60px;
-        padding: 0.25rem;
-    }
-
-    .day-number {
-        font-size: 0.8rem;
-    }
-
-    .festival-name {
-        font-size: 0.65rem;
-    }
-
-    .festival-item {
-        flex-direction: column;
-        align-items: flex-start;
         gap: 0.5rem;
     }
 
+    .calendar-selectors select {
+        padding: 0.6rem;
+        font-size: 0.8rem;
+        border-radius: 8px;
+        flex: 1;
+        max-width: 150px;
+    }
+
+    .calendar-grid {
+        gap: 2px;
+        margin-bottom: 1rem;
+        background: var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .calendar-header {
+        padding: 0.8rem 0.2rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .calendar-day {
+        min-height: 50px;
+        padding: 0.4rem 0.2rem;
+        background: var(--card-background);
+        position: relative;
+    }
+
+    .calendar-day:hover {
+        background: var(--background-start);
+    }
+
+    .day-number {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.2rem;
+        text-align: center;
+    }
+
+    /* Simplify festival display on mobile */
+    .festival-indicator {
+        display: none;
+    }
+
+    .festival-name {
+        display: none;
+    }
+
+    .multiple-festivals {
+        display: none;
+    }
+
+    /* Show festivals as simple dots */
+    .calendar-day[data-has-festivals="true"]::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+        width: 6px;
+        height: 6px;
+        background: #dc2626;
+        border-radius: 50%;
+    }
+
+    .calendar-day.today::before {
+        height: 2px;
+    }
+
+    .festivals-list {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .festivals-list h3 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        text-align: center;
+    }
+
+    .festival-item {
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background: var(--card-background);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+
+    .festival-item:hover {
+        transform: none;
+        box-shadow: none;
+        background: var(--background-start);
+    }
+
+    .festival-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .festival-details {
+        width: 100%;
+    }
+
+    .festival-title {
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .festival-description {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+    }
+
     .festival-date {
-        align-self: flex-end;
+        font-size: 0.8rem;
+        text-align: right;
+        margin-top: 0.25rem;
+    }
+
+    .festival-type {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.5rem;
+        display: inline-block;
+        margin-top: 0.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .indian-calendar {
+        margin: 0.25rem;
+        padding: 0.75rem;
+    }
+
+    .indian-calendar h2 {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .calendar-nav button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+        min-width: 50px;
+    }
+
+    .current-month {
+        font-size: 1.1rem;
+    }
+
+    .calendar-selectors {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .calendar-selectors select {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        max-width: none;
+        width: 100%;
+    }
+
+    .calendar-header {
+        padding: 0.6rem 0.1rem;
+        font-size: 0.65rem;
+    }
+
+    .calendar-day {
+        min-height: 45px;
+        padding: 0.3rem 0.1rem;
+    }
+
+    .day-number {
+        font-size: 0.85rem;
+    }
+
+    .festivals-list {
+        padding: 0.75rem;
+    }
+
+    .festivals-list h3 {
+        font-size: 0.95rem;
+    }
+
+    .festival-item {
+        padding: 0.6rem;
+    }
+
+    .festival-title {
+        font-size: 0.85rem;
+    }
+
+    .festival-description {
+        font-size: 0.7rem;
+    }
+
+    .festival-date {
+        font-size: 0.75rem;
+    }
+
+    .festival-type {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.4rem;
     }
 }

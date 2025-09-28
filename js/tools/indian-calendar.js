@@ -171,6 +171,8 @@ class IndianCalendar {
 
         // Add festival indicators
         if (festivals.length > 0) {
+            dayCell.setAttribute('data-has-festivals', 'true');
+            
             if (festivals.length === 1) {
                 const festivalName = document.createElement('div');
                 festivalName.className = 'festival-name';
