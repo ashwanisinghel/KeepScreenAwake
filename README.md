@@ -97,11 +97,49 @@ The modular structure makes it easy to:
 
 Each tool is self-contained with its own CSS and JavaScript files, making the codebase highly maintainable.
 
+## Live Demo
+
+🌐 **[View Live App](https://yourusername.github.io/time-tools-dashboard)**
+
+## Deployment
+
+This app is deployed using GitHub Pages and automatically updates when changes are pushed to the main branch.
+
+### Local Development
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/time-tools-dashboard.git
+cd time-tools-dashboard
+```
+
+2. Open `index.html` in your browser or use a local server:
+```bash
+# Using Python
+python -m http.server 8000
+
+# Using Node.js
+npx serve .
+
+# Using PHP
+php -S localhost:8000
+```
+
+3. Navigate to `http://localhost:8000`
+
 ## Browser Compatibility
 
 - Modern browsers with ES6+ support
 - Wake Lock API requires HTTPS in production
 - All time zone calculations use native JavaScript Date API
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature-name`
+5. Submit a pull request
 
 ## License
 
