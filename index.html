@@ -19,11 +19,50 @@
     <link rel="stylesheet" href="css/tools/epoch.css">
     <link rel="stylesheet" href="css/tools/working-hours.css">
     <link rel="stylesheet" href="css/tools/indian-calendar.css">
+    <link rel="stylesheet" href="css/navigation.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
-    <div class="header">
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#world-clock" class="nav-logo">
+                <span class="icon">🌍</span>
+                Time Dashboard
+            </a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#world-clock" class="nav-link">
+                        <span class="icon">🌍</span>
+                        World Clock
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#time-tools" class="nav-link">
+                        <span class="icon">⚡</span>
+                        Time Tools
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#indian-calendar" class="nav-link">
+                        <span class="icon">🕉️</span>
+                        Indian Calendar
+                    </a>
+                </li>
+            </ul>
+            
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="scroll-indicator"></div>
+    </nav>
+
+    <div class="header section-anchor" id="world-clock">
         <h1>Global Time Dashboard</h1>
         <p>Real-time world clock across major time zones</p>
     </div>
@@ -67,7 +106,7 @@
         </div>
     </div>
 
-    <div class="tools-container">
+    <div class="tools-container section-anchor" id="time-tools">
         <!-- Stopwatch Tool -->
         <div class="tool-card">
             <h2>⏱️ Stopwatch</h2>
@@ -245,7 +284,7 @@
     </div>
 
     <!-- Indian Calendar -->
-    <div class="indian-calendar">
+    <div class="indian-calendar section-anchor" id="indian-calendar">
         <h2>🕉️ Indian Calendar & Festivals (2000-2050)</h2>
         
         <div class="calendar-controls">
@@ -314,6 +353,7 @@
     <script src="js/tools/working-hours.js"></script>
     <script src="js/data/indian-festivals.js"></script>
     <script src="js/tools/indian-calendar.js"></script>
+    <script src="js/core/navigation.js"></script>
 </body>
 
 </html>
