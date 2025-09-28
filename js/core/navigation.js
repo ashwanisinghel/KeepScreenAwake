@@ -2,12 +2,16 @@
 class Navigation {
     constructor() {
         this.activeSection = 'world-clock';
+        this.lastScrollY = 0;
+        this.navbar = null;
         this.init();
     }
 
     init() {
+        this.navbar = document.querySelector('.navbar');
         this.setupEventListeners();
         this.setupScrollSpy();
+        this.setupAutoHide();
         this.updateActiveNavItem();
     }
 
@@ -60,11 +64,14 @@ class Navigation {
     scrollToSection(sectionId) {
         const section = document.getElementById(sectionId);
         if (section) {
-            const offsetTop = section.offsetTop - 80; // Account for sticky navbar
+            const offsetTop = section.offsetTop - 70; // Account for fixed navbar
             window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
             });
+            
+            // Show navbar when navigating
+            this.showNavbar();
         }
     }
 
@@ -102,6 +109,66 @@ class Navigation {
                 ticking = true;
             }
         });
+    }
+
+    setupAutoHide() {
+        let ticking = false;
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    this.handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // Show navbar on mouse move near top
+        document.addEventListener('mousemove', (e) => {
+            if (e.clientY <= 100) {
+                this.showNavbar();
+            }
+        });
+    }
+
+    handleScroll() {
+        const currentScrollY = window.scrollY;
+        
+        // Add scrolled class for enhanced styling
+        if (currentScrollY > 50) {
+            this.navbar.classList.add('navbar-scrolled');
+        } else {
+            this.navbar.classList.remove('navbar-scrolled');
+        }
+
+        // Auto-hide logic
+        if (currentScrollY > 100) { // Only hide after scrolling past 100px
+            if (currentScrollY > this.lastScrollY && !this.navbar.classList.contains('navbar-hidden')) {
+                // Scrolling down - hide navbar
+                this.hideNavbar();
+            } else if (currentScrollY < this.lastScrollY && this.navbar.classList.contains('navbar-hidden')) {
+                // Scrolling up - show navbar
+                this.showNavbar();
+            }
+        } else {
+            // Always show navbar at top of page
+            this.showNavbar();
+        }
+
+        this.lastScrollY = currentScrollY;
+    }
+
+    hideNavbar() {
+        if (this.navbar) {
+            this.navbar.classList.add('navbar-hidden');
+        }
+    }
+
+    showNavbar() {
+        if (this.navbar) {
+            this.navbar.classList.remove('navbar-hidden');
+        }
     }
 
     setActiveNavItem(sectionId) {
