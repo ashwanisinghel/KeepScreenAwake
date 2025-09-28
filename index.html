@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Time Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/tools/stopwatch.css">
+    <link rel="stylesheet" href="css/tools/timer.css">
+    <link rel="stylesheet" href="css/tools/timezone.css">
+    <link rel="stylesheet" href="css/tools/duration.css">
+    <link rel="stylesheet" href="css/tools/epoch.css">
+    <link rel="stylesheet" href="css/tools/working-hours.css">
+    <link rel="stylesheet" href="css/tools/indian-calendar.css">
+    <link rel="stylesheet" href="css/navigation.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#world-clock" class="nav-logo">
+                <span class="icon">🌍</span>
+                Time Dashboard
+            </a>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#world-clock" class="nav-link">
+                        <span class="icon">🌍</span>
+                        World Clock
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#time-tools" class="nav-link">
+                        <span class="icon">⚡</span>
+                        Time Tools
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#indian-calendar" class="nav-link">
+                        <span class="icon">🕉️</span>
+                        Indian Calendar
+                    </a>
+                </li>
+            </ul>
+
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="scroll-indicator"></div>
+    </nav>
+
+    <div class="header section-anchor" id="world-clock">
+        <h1>Global Time Dashboard</h1>
+        <p>Real-time world clock across major time zones</p>
+    </div>
+
+    <div class="dashboard">
+        <div class="card" data-timezone="Asia/Kolkata">
+            <div class="location">Mumbai, India</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC+5:30</div>
+        </div>
+        <div class="card" data-timezone="Europe/London">
+            <div class="location">London, UK</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC+0</div>
+        </div>
+        <div class="card" data-timezone="Asia/Tokyo">
+            <div class="location">Tokyo, Japan</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC+9</div>
+        </div>
+        <div class="card" data-timezone="America/New_York">
+            <div class="location">New York, USA</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC-5</div>
+        </div>
+        <div class="card" data-timezone="America/Los_Angeles">
+            <div class="location">Los Angeles, USA</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC-8</div>
+        </div>
+        <div class="card" data-timezone="Australia/Sydney">
+            <div class="location">Sydney, Australia</div>
+            <div class="clock">--:--:--</div>
+            <div class="date">--</div>
+            <div class="timezone-info">UTC+11</div>
+        </div>
+    </div>
+
+    <div class="tools-container section-anchor" id="time-tools">
+        <!-- Stopwatch Tool -->
+        <div class="tool-card">
+            <h2>⏱️ Stopwatch</h2>
+            <div class="stopwatch-display" id="stopwatchDisplay">00:00:00.000</div>
+            <div class="tool-controls">
+                <button id="stopwatchStart" onclick="startStopwatch()">Start</button>
+                <button id="stopwatchStop" onclick="stopStopwatch()" disabled>Stop</button>
+                <button id="stopwatchReset" onclick="resetStopwatch()">Reset</button>
+                <button id="stopwatchLap" onclick="addLap()" disabled>Lap</button>
+            </div>
+            <div class="lap-times" id="lapTimes"></div>
+        </div>
+
+        <!-- Timer Tool -->
+        <div class="tool-card">
+            <h2>⏰ Timer</h2>
+            <div class="timer-inputs">
+                <input type="number" id="timerHours" placeholder="Hours" min="0" max="23" value="0">
+                <input type="number" id="timerMinutes" placeholder="Minutes" min="0" max="59" value="5">
+                <input type="number" id="timerSeconds" placeholder="Seconds" min="0" max="59" value="0">
+            </div>
+            <div class="timer-display" id="timerDisplay">05:00</div>
+            <div class="tool-controls">
+                <button id="timerStart" onclick="startTimer()">Start</button>
+                <button id="timerPause" onclick="pauseTimer()" disabled>Pause</button>
+                <button id="timerReset" onclick="resetTimer()">Reset</button>
+            </div>
+            <div class="timer-progress">
+                <div class="progress-bar" id="timerProgress"></div>
+            </div>
+        </div>
+
+        <!-- Time Zone Calculator -->
+        <div class="tool-card">
+            <h2>🌍 Time Zone Calculator</h2>
+            <div class="timezone-calc-inputs">
+                <div class="timezone-input-group">
+                    <label>From:</label>
+                    <select id="fromTimezone">
+                        <option value="America/New_York">New York (EST/EDT)</option>
+                        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                        <option value="Europe/London">London (GMT/BST)</option>
+                        <option value="Europe/Paris">Paris (CET/CEST)</option>
+                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        <option value="Asia/Kolkata">Mumbai (IST)</option>
+                        <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+                    </select>
+                    <input type="time" id="fromTime" value="09:00">
+                </div>
+                <div class="timezone-input-group">
+                    <label>To:</label>
+                    <select id="toTimezone">
+                        <option value="America/New_York">New York (EST/EDT)</option>
+                        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                        <option value="Europe/London" selected>London (GMT/BST)</option>
+                        <option value="Europe/Paris">Paris (CET/CEST)</option>
+                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        <option value="Asia/Kolkata">Mumbai (IST)</option>
+                        <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="timezone-result" id="timezoneResult">
+                <div class="result-time">14:00</div>
+                <div class="result-info">5 hours ahead</div>
+            </div>
+        </div>
+
+        <!-- Duration Calculator -->
+        <div class="tool-card">
+            <h2>📅 Duration Calculator</h2>
+            <div class="duration-inputs">
+                <div class="duration-input-group">
+                    <label>Start Date & Time:</label>
+                    <input type="datetime-local" id="startDateTime">
+                </div>
+                <div class="duration-input-group">
+                    <label>End Date & Time:</label>
+                    <input type="datetime-local" id="endDateTime">
+                </div>
+            </div>
+            <div class="duration-result" id="durationResult">
+                <div class="duration-breakdown">
+                    <div class="duration-item">
+                        <span class="duration-value" id="durationDays">0</span>
+                        <span class="duration-label">Days</span>
+                    </div>
+                    <div class="duration-item">
+                        <span class="duration-value" id="durationHours">0</span>
+                        <span class="duration-label">Hours</span>
+                    </div>
+                    <div class="duration-item">
+                        <span class="duration-value" id="durationMinutes">0</span>
+                        <span class="duration-label">Minutes</span>
+                    </div>
+                </div>
+                <div class="duration-total" id="durationTotal">Total: 0 hours</div>
+            </div>
+        </div>
+
+        <!-- Epoch Time Converter -->
+        <div class="tool-card">
+            <h2>🔢 Epoch Time Converter</h2>
+            <div class="converter-grid">
+                <div class="converter-section">
+                    <label for="epochInput">Epoch Timestamp</label>
+                    <input type="number" id="epochInput" placeholder="Enter epoch timestamp"
+                        oninput="convertFromEpoch()">
+                    <button onclick="setCurrentEpoch()">Current Time</button>
+                </div>
+                <div class="converter-section">
+                    <label for="datetimeInput">Date & Time</label>
+                    <input type="datetime-local" id="datetimeInput" oninput="convertToEpoch()">
+                    <button onclick="setCurrentDateTime()">Current Time</button>
+                </div>
+            </div>
+            <div class="converter-output">
+                <div class="output-item">
+                    <span class="output-label">Human Readable:</span>
+                    <span id="humanReadable" class="output-value">-</span>
+                </div>
+                <div class="output-item">
+                    <span class="output-label">ISO String:</span>
+                    <span id="isoString" class="output-value">-</span>
+                </div>
+                <div class="output-item">
+                    <span class="output-label">UTC String:</span>
+                    <span id="utcString" class="output-value">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Working Hours Calculator -->
+        <div class="tool-card">
+            <h2>💼 Working Hours Calculator</h2>
+            <div class="working-hours-inputs">
+                <div class="working-hours-group">
+                    <label>Your Time Zone:</label>
+                    <select id="yourTimezone">
+                        <option value="America/New_York">New York (EST/EDT)</option>
+                        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                        <option value="Europe/London">London (GMT/BST)</option>
+                        <option value="Europe/Paris">Paris (CET/CEST)</option>
+                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        <option value="Asia/Kolkata">Mumbai (IST)</option>
+                        <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+                    </select>
+                </div>
+                <div class="working-hours-group">
+                    <label>Colleague's Time Zone:</label>
+                    <select id="colleagueTimezone">
+                        <option value="America/New_York">New York (EST/EDT)</option>
+                        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                        <option value="Europe/London" selected>London (GMT/BST)</option>
+                        <option value="Europe/Paris">Paris (CET/CEST)</option>
+                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        <option value="Asia/Kolkata">Mumbai (IST)</option>
+                        <option value="Australia/Sydney">Sydney (AEST/AEDT)</option>
+                    </select>
+                </div>
+                <div class="working-hours-time">
+                    <label>Working Hours (9 AM - 5 PM):</label>
+                    <input type="time" id="workStart" value="09:00">
+                    <input type="time" id="workEnd" value="17:00">
+                </div>
+            </div>
+            <div class="working-hours-result" id="workingHoursResult">
+                <div class="overlap-info">
+                    <div class="overlap-title">Overlapping Hours:</div>
+                    <div class="overlap-time" id="overlapTime">10:00 - 14:00 (4 hours)</div>
+                    <div class="best-meeting-time" id="bestMeetingTime">Best meeting time: 12:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indian Calendar -->
+    <div class="indian-calendar section-anchor" id="indian-calendar">
+        <h2>🕉️ Indian Calendar & Festivals (2000-2050)</h2>
+
+        <div class="calendar-controls">
+            <div class="calendar-nav">
+                <button id="prevMonth">← Previous</button>
+                <button id="todayBtn">Today</button>
+                <button id="nextMonth">Next →</button>
+            </div>
+
+            <div class="current-month" id="currentMonth">January 2024</div>
+
+            <div class="calendar-selectors">
+                <select id="monthSelect">
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+                <select id="yearSelect"></select>
+            </div>
+        </div>
+
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Calendar will be generated by JavaScript -->
+        </div>
+
+        <div class="festivals-list">
+            <h3>Festivals This Month</h3>
+            <div id="festivalsList">
+                <!-- Festivals list will be generated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+    </div>
+
+
+
+    <footer class="footer">
+        <p>Made with ❤️ by <strong>Ashwani Singh</strong></p>
+        <p class="footer-subtitle">Crafted with love, dedicated to you.</p>
+    </footer>
+
+    <!-- JavaScript Modules -->
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/wake-lock.js"></script>
+    <script src="js/core/world-clock.js"></script>
+    <script src="js/tools/stopwatch.js"></script>
+    <script src="js/tools/timer.js"></script>
+    <script src="js/tools/timezone-calculator.js"></script>
+    <script src="js/tools/duration-calculator.js"></script>
+    <script src="js/tools/epoch-converter.js"></script>
+    <script src="js/tools/working-hours.js"></script>
+    <script src="js/data/indian-festivals.js"></script>
+    <script src="js/tools/indian-calendar.js"></script>
+    <script src="js/core/navigation.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+/* Stopwatch Tool Styles */
+.stopwatch-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 1rem 0;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+}
+
+.lap-times {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.lap-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+}

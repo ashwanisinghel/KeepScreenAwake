@@ -1,0 +1,99 @@
+/* World Clock Dashboard Styles */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    gap: 1rem;
+    max-width: 1400px;
+    width: 100%;
+    padding: 0 2rem;
+    margin-bottom: 4rem;
+}
+
+.card {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-height: 140px;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 25px -5px rgb(0 0 0 / 0.15), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+}
+
+.card[data-timezone="Asia/Kolkata"] {
+    border-top: 3px solid #dc2626;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, var(--card-background) 100%);
+}
+
+.card[data-timezone="Europe/London"] {
+    border-top: 3px solid #4f46e5;
+    background: linear-gradient(135deg, rgba(79, 70, 229, 0.05) 0%, var(--card-background) 100%);
+}
+
+.card[data-timezone="Asia/Tokyo"] {
+    border-top: 3px solid #db2777;
+    background: linear-gradient(135deg, rgba(219, 39, 119, 0.05) 0%, var(--card-background) 100%);
+}
+
+.card[data-timezone="America/New_York"] {
+    border-top: 3px solid #0284c7;
+    background: linear-gradient(135deg, rgba(2, 132, 199, 0.05) 0%, var(--card-background) 100%);
+}
+
+.card[data-timezone="America/Los_Angeles"] {
+    border-top: 3px solid #d97706;
+    background: linear-gradient(135deg, rgba(217, 119, 6, 0.05) 0%, var(--card-background) 100%);
+}
+
+.card[data-timezone="Australia/Sydney"] {
+    border-top: 3px solid #0891b2;
+    background: linear-gradient(135deg, rgba(8, 145, 178, 0.05) 0%, var(--card-background) 100%);
+}
+
+.card .location {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card .clock {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.025em;
+    line-height: 1;
+}
+
+.card .date {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+}
+
+.card .timezone-info {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    background: rgba(248, 250, 252, 0.6);
+    padding: 0.3rem 0.6rem;
+    border-radius: 12px;
+    display: inline-block;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
