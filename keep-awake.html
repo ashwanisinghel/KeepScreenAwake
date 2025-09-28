@@ -265,6 +265,134 @@
             font-style: italic;
         }
 
+        .epoch-converter {
+            background: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 1rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .epoch-converter h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0 0 1.5rem 0;
+            text-align: center;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .converter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .converter-section label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .converter-section input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--card-background);
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .converter-section input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .converter-section button {
+            padding: 0.5rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .converter-section button:hover {
+            background: #1d4ed8;
+        }
+
+        .converter-output {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--background-start);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .output-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .output-item:last-child {
+            border-bottom: none;
+        }
+
+        .output-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .output-value {
+            font-size: 0.875rem;
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            text-align: right;
+            max-width: 60%;
+        }
+
+        @media (max-width: 768px) {
+            .converter-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .epoch-converter {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+
+            .output-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.25rem;
+            }
+
+            .output-value {
+                max-width: 100%;
+                text-align: left;
+            }
+        }
+
         @media (max-width: 1024px) and (min-width: 769px) {
             .dashboard {
                 grid-template-columns: repeat(2, 1fr);
@@ -346,6 +474,36 @@
             <div class="clock">--:--:--</div>
             <div class="date">--</div>
             <div class="timezone-info">UTC+11</div>
+        </div>
+    </div>
+
+    <div class="epoch-converter">
+        <h2>Epoch Time Converter</h2>
+        <div class="converter-grid">
+            <div class="converter-section">
+                <label for="epochInput">Epoch Timestamp</label>
+                <input type="number" id="epochInput" placeholder="Enter epoch timestamp" oninput="convertFromEpoch()">
+                <button onclick="setCurrentEpoch()">Current Time</button>
+            </div>
+            <div class="converter-section">
+                <label for="datetimeInput">Date & Time</label>
+                <input type="datetime-local" id="datetimeInput" oninput="convertToEpoch()">
+                <button onclick="setCurrentDateTime()">Current Time</button>
+            </div>
+        </div>
+        <div class="converter-output">
+            <div class="output-item">
+                <span class="output-label">Human Readable:</span>
+                <span id="humanReadable" class="output-value">-</span>
+            </div>
+            <div class="output-item">
+                <span class="output-label">ISO String:</span>
+                <span id="isoString" class="output-value">-</span>
+            </div>
+            <div class="output-item">
+                <span class="output-label">UTC String:</span>
+                <span id="utcString" class="output-value">-</span>
+            </div>
         </div>
     </div>
 
@@ -446,6 +604,75 @@
                 }, index * 100);
             });
         });
+
+        // Epoch converter functions
+        function convertFromEpoch() {
+            const epochInput = document.getElementById('epochInput');
+            const epochValue = parseInt(epochInput.value);
+
+            if (isNaN(epochValue)) {
+                clearOutputs();
+                return;
+            }
+
+            // Handle both seconds and milliseconds
+            const timestamp = epochValue.toString().length === 10 ? epochValue * 1000 : epochValue;
+            const date = new Date(timestamp);
+
+            if (isNaN(date.getTime())) {
+                clearOutputs();
+                return;
+            }
+
+            updateOutputs(date);
+
+            // Update datetime input
+            const datetimeInput = document.getElementById('datetimeInput');
+            const localDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+            datetimeInput.value = localDateTime.toISOString().slice(0, 16);
+        }
+
+        function convertToEpoch() {
+            const datetimeInput = document.getElementById('datetimeInput');
+            const datetimeValue = datetimeInput.value;
+
+            if (!datetimeValue) {
+                clearOutputs();
+                return;
+            }
+
+            const date = new Date(datetimeValue);
+            const epochTimestamp = Math.floor(date.getTime() / 1000);
+
+            document.getElementById('epochInput').value = epochTimestamp;
+            updateOutputs(date);
+        }
+
+        function setCurrentEpoch() {
+            const now = new Date();
+            const epochTimestamp = Math.floor(now.getTime() / 1000);
+            document.getElementById('epochInput').value = epochTimestamp;
+            convertFromEpoch();
+        }
+
+        function setCurrentDateTime() {
+            const now = new Date();
+            const localDateTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
+            document.getElementById('datetimeInput').value = localDateTime.toISOString().slice(0, 16);
+            convertToEpoch();
+        }
+
+        function updateOutputs(date) {
+            document.getElementById('humanReadable').textContent = date.toLocaleString();
+            document.getElementById('isoString').textContent = date.toISOString();
+            document.getElementById('utcString').textContent = date.toUTCString();
+        }
+
+        function clearOutputs() {
+            document.getElementById('humanReadable').textContent = '-';
+            document.getElementById('isoString').textContent = '-';
+            document.getElementById('utcString').textContent = '-';
+        }
     </script>
     <script>
         let wakeLock = null;
