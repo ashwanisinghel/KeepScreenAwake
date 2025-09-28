@@ -105,4 +105,4 @@ Each tool is self-contained with its own CSS and JavaScript files, making the co
 
 ## License
 
-Created by Ashwani Singh for frustrated developers everywhere! ❤️
+Crafted with love, dedicated to you. ❤️
